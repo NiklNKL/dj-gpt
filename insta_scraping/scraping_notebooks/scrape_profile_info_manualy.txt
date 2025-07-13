@@ -1,0 +1,3 @@
+Put the following link in your browser and replace USERNAME with the username (found in the url of the profile) that you are trying to scrape.
+
+https://www.instagram.com/web/search/topsearch/?query=USERNAME
