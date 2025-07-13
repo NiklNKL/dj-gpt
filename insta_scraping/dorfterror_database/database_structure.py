@@ -6,8 +6,8 @@ Base = declarative_base()
 
 class Profile(Base):
     __tablename__ = 'profiles'
-    id = Column(BigInteger, primary_key=True)
-    fbid = Column(BigInteger, nullable=True)
+    id = Column(String, primary_key=True)
+    fbid = Column(String, nullable=True)
     username = Column(String, unique=True, index=True)
     full_name = Column(String, nullable=True)
     profile_url = Column(String)
@@ -38,7 +38,7 @@ class Profile(Base):
 
 class Follower(Base):
     __tablename__ = 'followers'
-    profile_id = Column(BigInteger, ForeignKey('profiles.id'), primary_key=True)
+    profile_id = Column(String, ForeignKey('profiles.id'), primary_key=True)
     username = Column(String, unique=True, index=True)
     comment_count = Column(Integer, default=0)
 
@@ -46,7 +46,7 @@ class Follower(Base):
 
 class Post(Base):
     __tablename__ = 'posts'
-    id = Column(BigInteger, primary_key=True)
+    id = Column(String, primary_key=True)
     shortcode = Column(String)
     user_posted = Column(String)
     date_local = Column(DateTime)
@@ -82,9 +82,10 @@ class Post(Base):
   
 class Comment(Base):
     __tablename__ = 'comments'
-    id = Column(BigInteger, primary_key=True)
-    post_id = Column(BigInteger, ForeignKey('posts.id'))
-    profile_id = Column(BigInteger, ForeignKey('profiles.id'), nullable=True)
+    id = Column(String, primary_key=True)
+    post_id = Column(String, ForeignKey('posts.id'))
+    profile_id = Column(String, ForeignKey('profiles.id'), nullable=True)
+    user_name = Column(String, index=True)
     parent_comment_id = Column(BigInteger, nullable=True)
     post_url = Column(String)
     replies_count = Column(Integer)
@@ -101,8 +102,8 @@ class Comment(Base):
 
 class Collaborator(Base):
     __tablename__ = 'collaborators'
-    post_id = Column(BigInteger, ForeignKey('posts.id'), primary_key=True)
-    profile_id = Column(BigInteger, ForeignKey('profiles.id'), primary_key=True)
+    post_id = Column(String, ForeignKey('posts.id'), primary_key=True)
+    profile_id = Column(String, ForeignKey('profiles.id'), primary_key=True)
     username = Column(String, index=True)
 
     post = relationship("Post", back_populates="collaborators")
