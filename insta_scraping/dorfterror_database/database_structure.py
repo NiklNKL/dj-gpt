@@ -76,6 +76,7 @@ class Post(Base):
     engagement_score_view = Column(Float, nullable=True)
     is_collab = Column(Boolean)
     total_follower_reach = Column(Integer, default=0)
+    category = Column(String, nullable=True)
 
     collaborators = relationship("Collaborator", back_populates="post")
     comments = relationship("Comment", back_populates="post")
