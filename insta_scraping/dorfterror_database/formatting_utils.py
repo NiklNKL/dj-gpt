@@ -1,6 +1,10 @@
 import json
 import numpy as np
 import re
+from sqlalchemy import func
+from sqlalchemy.orm import Session
+from database_structure import Comment, Likes, Follower
+
 
 def format_list(current_list: list) -> list:
     """
@@ -93,3 +97,37 @@ def get_total_follower_reach(user_post: str, collaborators: list, profile_mappin
         _, follower_count = profile_mapping.get(account, (None, 0))
         total_reach += follower_count
     return total_reach
+
+def get_follower_comment_count(profile_id: str, session: Session) -> int:
+
+    comment_counts = (
+        session.query(Comment.profile_id, func.count(Comment.id))
+        .filter(Comment.profile_id == profile_id)
+        .group_by(Comment.profile_id)
+        .count()
+    )
+
+    return comment_counts if comment_counts else 0
+
+def get_follower_like_count(profile_id: str, session: Session) -> int:
+
+    like_counts = (
+        session.query(Likes.profile_id, func.count(Likes.profile_id))
+        .filter(Likes.profile_id == profile_id)
+        .group_by(Likes.profile_id)
+        .count()
+    )
+
+    return like_counts if like_counts else 0
+
+def get_post_follower_like_count(post_id: str, session: Session) -> int:
+
+    follower_likes = (
+        session.query(Likes.post_id, func.count(Likes.post_id))
+        .filter(Likes.post_id == post_id)
+        .filter(Likes.profile_id.in_(session.query(Follower.profile_id)))
+        .group_by(Likes.post_id)
+        .count()
+    )
+
+    return follower_likes if follower_likes else 0

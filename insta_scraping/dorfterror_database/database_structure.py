@@ -35,12 +35,14 @@ class Profile(Base):
     followers = relationship("Follower", back_populates="profile")
     comments = relationship("Comment", back_populates="profile")
     collaborations = relationship("Collaborator", back_populates="profile")
+    likes = relationship("Likes", back_populates="profile")
 
 class Follower(Base):
     __tablename__ = 'followers'
     profile_id = Column(String, ForeignKey('profiles.id'), primary_key=True)
     username = Column(String, unique=True, index=True)
     comment_count = Column(Integer, default=0)
+    likes_count = Column(Integer, default=0)
 
     profile = relationship("Profile", back_populates="followers")
 
@@ -77,9 +79,13 @@ class Post(Base):
     is_collab = Column(Boolean)
     total_follower_reach = Column(Integer, default=0)
     category = Column(String, nullable=True)
+    follower_like_count = Column(Integer, default=0)
+    follower_like_ratio = Column(Float, default=0.0)
+    follower_to_non_follower_ratio = Column(Float, default=0.0)
 
     collaborators = relationship("Collaborator", back_populates="post")
     comments = relationship("Comment", back_populates="post")
+    likes = relationship("Likes", back_populates="post")
   
 class Comment(Base):
     __tablename__ = 'comments'
@@ -109,3 +115,12 @@ class Collaborator(Base):
 
     post = relationship("Post", back_populates="collaborators")
     profile = relationship("Profile", back_populates="collaborations")
+
+class Likes(Base):
+    __tablename__ = 'likes'
+    post_id = Column(String, ForeignKey('posts.id'), primary_key=True)
+    profile_id = Column(String, ForeignKey('profiles.id'), primary_key=True)
+    username = Column(String, index=True)
+
+    post = relationship("Post", back_populates="likes")
+    profile = relationship("Profile", back_populates="likes")
