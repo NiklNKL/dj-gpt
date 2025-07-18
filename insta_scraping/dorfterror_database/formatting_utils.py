@@ -1,6 +1,10 @@
 import json
 import numpy as np
 import re
+from sqlalchemy import func
+from sqlalchemy.orm import Session
+from database_structure import Comment, Likes, Follower
+
 
 def format_list(current_list: list) -> list:
     """
