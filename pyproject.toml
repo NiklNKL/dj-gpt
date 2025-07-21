@@ -15,6 +15,7 @@ dependencies = [
     "chardet>=5.2.0",
     "cryptography>=45.0.4",
     "docker>=7.1.0",
+    "emoji>=2.14.1",
     "fake-useragent>=2.2.0",
     "idna>=3.10",
     "instaloader>=4.14.1",
