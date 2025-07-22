@@ -1,0 +1,16 @@
+{
+    "best_hyperparams": {
+        "n_estimators": 892,
+        "learning_rate": 0.056356815693772565,
+        "num_leaves": 55,
+        "max_depth": 16,
+        "reg_alpha": 0.014870630534821117,
+        "reg_lambda": 0.17836384271038924,
+        "colsample_bytree": 0.6763607205390579,
+        "subsample": 0.9648478734278664,
+        "min_data_in_leaf": 61,
+        "min_sum_hessian_in_leaf": 1.099148182917467e-07,
+        "max_bin": 131
+    },
+    "best_mean_absolute_error": 0.006580072025814748
+}
