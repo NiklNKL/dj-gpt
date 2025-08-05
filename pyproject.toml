@@ -43,6 +43,7 @@ dependencies = [
     "six>=1.17.0",
     "soupsieve>=2.7",
     "sqlalchemy>=2.0.41",
+    "statsmodels>=0.14.5",
     "stem>=1.8.2",
     "streamlit>=1.45.1",
     "textblob>=0.19.0",

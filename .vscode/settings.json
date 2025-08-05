@@ -1,5 +1,6 @@
 {
     "python.analysis.extraPaths": [
         "./insta_scraping"
-    ]
+    ],
+    "python.analysis.autoImportCompletions": true
 }
